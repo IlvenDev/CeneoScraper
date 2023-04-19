@@ -11,15 +11,16 @@ def get_element(ancestor, selector = None, attribute = None, return_list = False
         if attribute:
             return ancestor.select_one(selector)[attribute].strip()
         return ancestor.select_one(selector).text.strip()
-    except AttributeError:
+    except (AttributeError, TypeError):
         return None
 
-product_code = "96685108"
+product_code = input("Podaj kod produktu: ")
 all_opinions = []
 url = f"https://www.ceneo.pl/{product_code}#tab=reviews"
 
 while(url):
 
+    print(url)
     response = req.get(url)
     page = BeautifulSoup(response.text, 'html.parser')
     opinions = page.select("div.js_product-review")
@@ -35,8 +36,8 @@ while(url):
         "thumbs_up": ["button.vote-yes > span"],
         "thumbs_down": ["button.vote-no > span"],
         "content": ["div.user-post__text"],
-        "pros": ["div.review-feature__col:has(> div.reviev-feature title-positives) > div.review-feature item", None, True],
-        "cons": ["div.review-feature__col:has(> div.reviev-feature title-negatives) > div.review-feature item", None, True]
+        "pros": ["div.review-feature__col:has(> div.review-feature__title--positives) > div.review-feature__item",None, True],
+        "cons": ["div.review-feature__col:has(> div.review-feature__title--negatives) > div.review-feature__item",None, True]
     }
 
     for opinion in opinions:
