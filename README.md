@@ -18,5 +18,10 @@ lista wad | cons | div.review-feature__col:has(> div.reviev-feature title-negati
 lista zalet | pros | div.review-feature__col:has(> div.reviev-feature title-positives) > div.review-feature item
 
 ## użyte biblioteki
-- requests
+- Requests
 - beautifulsoup4
+- json
+- Os
+- Pandas
+- Matplotlib
+- Numpy

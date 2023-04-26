@@ -1,6 +1,7 @@
 import requests as req
 from bs4 import BeautifulSoup
 import json as json
+import os
 
 def get_element(ancestor, selector = None, attribute = None, return_list = False):
     try:
@@ -50,6 +51,11 @@ while(url):
         url = "https://www.ceneo.pl/"+get_element(page, "a.pagination__next", "href") 
     except TypeError:
         url = None
+
+try:    
+    os.mkdir("./plots")
+except FileExistsError:
+    pass
     
 with open(f"./opinions/{product_code}.json", "w", encoding="UTF-8") as jf:    
     json.dump(all_opinions, jf ,indent = 4, ensure_ascii = False)
